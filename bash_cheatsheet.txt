@@ -1,0 +1,41 @@
+Local Variables and Typesets
+Let
+	- Arithmetic is faster for integer variables in bash
+	- let x++;
+	- let y=x**2,
+	- let x*=5
+Declare
+	- declare -l mean it would turn uppercase to lowercase if input is string
+	- declare -u for uppercase
+	- declare -a means the type is array
+	- declare -r means read_only variable same as constant in other languages
+	- declare -A would make it a hash (dictionary type) variable
+	examples
+	-	declare -l lstring="ABCdef"
+		declare -u ustring="ABCdef"
+		declare -r readonly="A Value"
+		declare -a Myarray
+		declare -A Myarray2
+
+		echo lstring = $lstring
+		echo ustring = $ustring
+		echo readonly = $readonly
+		readonly="New Value"
+		Myarray[2]="Second Value"
+		echo 'Myarray[2]= ' ${Myarray[2]}
+		Myarray2["hotdog"]="baseball"
+		echo 'Myarray2[hotdog]= ' ${Myarray2["hotdog"]}
+
+		the results are 
+		- source declare.sh
+			lstring = abcdef
+			ustring = ABCDEF
+			readonly = A Value
+			bash: readonly: readonly variable
+			Myarray[2]=  Second Value
+			Myarray2[hotdog]=  baseball
+
+For, While loops 
+	-
+
+
