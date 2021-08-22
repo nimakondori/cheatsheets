@@ -26,7 +26,7 @@ Declare
 		Myarray2["hotdog"]="baseball"
 		echo 'Myarray2[hotdog]= ' ${Myarray2["hotdog"]}
 
-		the results are 
+		the outputs are 
 		- source declare.sh
 			lstring = abcdef
 			ustring = ABCDEF
@@ -34,6 +34,31 @@ Declare
 			bash: readonly: readonly variable
 			Myarray[2]=  Second Value
 			Myarray2[hotdog]=  baseball
+
+Typeset
+	- typeset x 
+	means the variable is local to a functions 
+		#!/bin/bash
+		function f1 {
+		   typeset x
+		   x=7
+		   y=8
+		}
+		x=1
+		y=2
+		echo x is $x
+		echo y is $y
+		f1
+		echo x is $x
+		echo y is $y
+	outputs:
+		x is 1
+		y is 2
+		x is 1
+		y is 8
+
+
+
 
 For, While loops 
 	-
