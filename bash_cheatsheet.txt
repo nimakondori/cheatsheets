@@ -1,3 +1,71 @@
+Introduction
+	- First 2 chars should #!
+	- followed by path to Bash or env
+	- #!/usr/bin/env bash
+	- The scripts are executed via the kernel system called execve()
+	- Kernel checks for #! and passes the path to teh original program as a command-line argument
+	- so ./myscript.sh with #!bin/bash would have the kernel execute /bin/bash ./myscript
+
+	- make sure scripts are executable with chmod u+x
+	- if the directory you are running the script is not in the path file you have to run the script with ./ before hand
+
+	- ps -l will return the number of processed and their relevant information 
+- PID is the process id and PPID is the parent process id
+
+Time Commands
+	- time find / -name core
+
+Variables in bash
+	- don't put spaces around the equal sign when assiging a variable
+		- the reason is that space is normally considered as a new command
+	- For a shell script to get a copy of a shell variable, it should be exported
+	- alternatively, you can declare -x myvar
+	- compgen -k will give you all the keywords of bash in the system
+	j
+
+Grouping in Bash
+	- in bash opening a paranthesis means that a new process starts and closing it means the process is done and the data is gone
+	- if you open a bracket {} that does not start a new process and the data affects your shell after the bracket is closed
+	- functions dont get a copy of the variables they share variables
+	- enable will list all the built-ins
+
+PATH
+	- the command to add a folder to path is 
+		- PATH=$PATH:/usr/local/bin
+
+Aliases 
+ 	- when you write a something in shell it will first look into the builtins and the aliases to see if it finds the meaning there
+	- syntax is 
+	- alias ll="ls -l"
+	- aliases are for commands not the variables
+	Common Aliases are 
+		- alias rn=mv   to rename instead of move
+		- alias copy=cp 
+		- alias mroe=more
+	- alias    command will list all the aliases in the systems
+	- to remove an alias use unalias
+	- also if you give a path to a command it will not recognize the alias anymore
+		- /usr/bin/ls will run the original ls not the alias
+	- alias ll will show if there is any aliases for the command typed
+	- 
+
+Sourcing 
+	- when you run a script it would make a new process and do some stuff. when the script is over it would the variables are gone. sourcing a bash script will let the shell receive a copy of those variables
+
+ECHO 
+	- echo -n will print the newline characters as \n
+	- echo -e will let the escape characters be shown properly (\n = newline and \t = tab;)
+	- echo -E will show the escape characters as what the are 
+
+
+
+
+
+- Each new shell runs the /.bashrc.sh
+	- if you export a variable in the bashrc then it will be defined in every shell 
+- Export would create the variable and put  it in the environment, but for this shell only
+
+
 Local Variables and Typesets
 Let
 	- Arithmetic is faster for integer variables in bash
