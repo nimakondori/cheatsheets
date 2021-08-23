@@ -1,0 +1,64 @@
+Kubernetes
+
+- Replicasets have only one purpose, to check if enough number of  pods are running
+- we usually never create a pod or replicaset by its own, we usually create them inside a deployment
+
+
+- Kubectl create -f helloworld.yaml 
+    - create keyword
+    - -f means that it's a file
+
+- Kubectl get all 
+    - returns all the resources that are deployed
+
+- kubectl expose deployment helloword --type=NodePort
+    - this means we are exposing the pod to the outside traffic using the service type
+
+Exposing the pod to outside traffic can be done through 3 different methods
+
+1. NodePort service type
+- NodePort is a configuration setting you declare in a service’s YAML. Set the service spec’s type to NodePort. Then, Kubernetes will allocate a specific port on each Node to that service, and any request to your cluster on that port gets forwarded to the service.
+
+- This is cool and easy, it’s just not super robust. You don’t know what port your service is going to be allocated, and the port might get re-allocated at some point.
+
+2. Ingress
+You can set a service to be of type LoadBalancer the same way you’d set NodePort— specify the type property in the service’s YAML. There needs to be some external load balancer functionality in the cluster, typically implemented by a cloud provider.
+
+This is typically heavily dependent on the cloud provider—GKE creates a Network Load Balancer with an IP address that you can use to access your service.
+
+Every time you want to expose a service to the outside world, you have to create a new LoadBalancer and get an IP address.
+
+3. LoadBalancer
+NodePort and LoadBalancer let you expose a service by specifying that value in the service’s type. Ingress, on the other hand, is a completely independent resource to your service. You declare, create and destroy it separately to your services.
+
+This makes it decoupled and isolated from the services you want to expose. It also helps you to consolidate routing rules into one place.
+
+The one downside is that you need to configure an Ingress Controller for your cluster. But that’s pretty easy—in this example, we’ll use the Nginx Ingress Controller.
+
+
+- kubectl get deployment helloworld -o yaml
+    - This outputs the deployment as a yaml file
+- kubectl get pods --show-labels
+- kubectl label pod helloworld rez=stupid
+    - this lets you add the keyword value of rez = stupid to the helloworld pod
+    - if the keyword already exists you have to set the --overwrite to overwrite that value
+
+
+- kubectl get pods --selector env=production
+    - This would filter and show all the pods that belong to production env
+    - To verify add --show-labels to the end of the command above and it would show the labels
+- kubectl get pods --selector env!=production
+    - To return all the env labels that are not production
+- kubectl get pods --selector dev-lead=carisa,enc=staging
+    - This is similar to the next command
+- kubectl get pods -l application_type=api,dev-lead=jim
+    - This searches the pods that have the labels application_type=api and the dev_lead is Jim
+- kubectl get pods -l "release_version in (1.0, 2.0)"
+    - This searches for pods that have realease version label between 1.0, 2.0
+- kubectl get pods -l "release_version notin (1.0, 2.0)"
+    - This searches for pods that have realease version label is not between 1.0, 2.0
+DELETE by LABELS
+- kubectl delete pods -l dev-lead=karthik
+
+
+
